@@ -1,20 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StyleSheet, Text, View } from 'react-native';
+import { ErrorBoundary } from './src/modules/ErrorBoundary/ErrorBoundary.tsx'
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ErrorBoundary fallback={() => <View><Text>error is working</Text></View>}>
+      <StatusBar />
+      <SafeAreaProvider>
+        <EEEE />
+      </SafeAreaProvider>
+    </ErrorBoundary>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const EEEE = () => {
+  throw new Error('Testing error boundary');
+    return (
+    <Text>dsds</Text>
+  )
+}
