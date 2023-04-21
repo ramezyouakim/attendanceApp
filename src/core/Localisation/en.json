@@ -1,7 +1,21 @@
 {
-    "internet_connectivity_label" : "No Internet Please Check Your Connection!",
-    "app_update" : {
+    "internet_connectivity_label": "No Internet Please Check Your Connection!",
+    "app_update": {
         "title": "You're using an old version, Please update the App!",
         "button": "Update the App"
+    },
+    "home": {
+        "coming_soon": "Coming Soon",
+        "welcome_tile": {
+            "title": "Hi {{name}}",
+            "score_title": "Your score",
+            "score_count_prefix": "Points"
+        },
+        "scan_tile": {
+            "title": "Scan and\nGet\nRewarded"
+        },
+        "redem_tile": {
+            "title": "Redem\nYour\nRewards"
+        }
     }
 }

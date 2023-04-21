@@ -7,6 +7,7 @@ import { ErrorBoundary } from './src/modules/ErrorBoundary/ErrorBoundary.tsx'
 import i18n from './src/core/Localisation/i18n';
 import ManageThemeProvider from './src/core/Constants/Theme/ThemeProvider'
 import AppNavigator from './src/routes/AppNavigator'
+import styled from 'styled-components/native';
 
 
 const CONNECTION_STATUS_BAR_LABEL = i18n.t("internet_connectivity_label")
@@ -17,7 +18,7 @@ export default function App() {
     <ErrorBoundary fallback={() => <View><Text>error is working</Text></View>}>
 
       <SafeAreaProvider>
-        <SafeAreaView>
+        <SafeAreaContainer>
           <ManageThemeProvider>
             <ConnectionStatusBar
               onConnectionChange={() => console.log('connection changed')}
@@ -28,9 +29,13 @@ export default function App() {
 
           </ManageThemeProvider>
 
-        </SafeAreaView>
+        </SafeAreaContainer>
       </SafeAreaProvider>
 
     </ErrorBoundary>
   )
 }
+
+const SafeAreaContainer = styled(SafeAreaView)(({
+  flex: 1
+}))

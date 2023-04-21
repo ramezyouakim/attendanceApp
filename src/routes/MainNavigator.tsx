@@ -3,13 +3,21 @@ import { ActivityIndicator } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../Screens/Home/HomeScreen'
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const MainStack = createNativeStackNavigator();
 
 const MainNavigator = () => {
 
+    const [loading, setLoading] = useState(true)
 
-    // if (loading) return <LoadingIndicator />
+    React.useEffect(()=>{
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000);
+    },[])
+
+    if (loading) return <LoadingIndicator />
 
     return (
         <MainStack.Navigator>

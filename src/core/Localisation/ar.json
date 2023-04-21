@@ -3,5 +3,19 @@
     "app_update" : {
         "title": "أنت تستخدم إصدارًا قديمًا ، يرجى تحديث التطبيق",
         "button": "تحديث التطبيق"
+    },
+    "home":{
+        "coming_soon": "قريباً",
+        "welcome_tile":{
+            "title": "اهلا {{name}}",
+            "score_title": "رصيد نقاطك",
+            "score_count_prefix": "نقطة"
+        },
+        "scan_tile": {
+            "title": "امسح واحصل\n على مكافأة"
+        },
+        "redem_tile": {
+            "title": "استرداد\nالمكافأة\n الخاصة بك"
+        }
     }
 }

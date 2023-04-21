@@ -1,31 +1,108 @@
-import React from 'react';
-import { Card } from 'react-native-ui-lib';
+import React, { useEffect, useRef } from 'react';
+import LottieView from 'lottie-react-native'
+import { Card, Text } from 'react-native-ui-lib';
+import * as Animatable from 'react-native-animatable';
+
+import WelcomeTileImage from '../../../../assets/animtions/core/homeScreen/welcome-tile-image.json'
+import styled from 'styled-components/native';
+import AnimatedLottieView from 'lottie-react-native';
+import i18n from '../../../core/Localisation/i18n';
+
+const TRANSLATION_KEY = 'home.welcome_tile'
 
 const WelcomeTile = () => {
-    return (
-        <>
-            <Card
-                flex
-                height={200}
-                style={{ backgroundColor: 'blue' }}
-                center
-                marginT-5
-                onPress={() => console.log('pressed 1')}>
-                <Card.Image
-                    source={{
-                        uri: 'https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&q=80',
-                    }}
-                    style={{
-                        // add this, and remove width/height of Card.Image, set them on Card
-                        width: '100%',
-                        height: '100%',
-                    }}
-                />
-            </Card>
-        </>
-    )
 
+    // workaound after expo update
+    const lottieRef = useRef<AnimatedLottieView | null>(null);
+    useEffect(() => {
+        if (lottieRef.current) {
+            setTimeout(() => {
+                lottieRef.current?.reset();
+                lottieRef.current?.play();
+            }, 100);
+        }
+    }, [lottieRef.current]);
+
+    return (
+        <Animatable.View animation="zoomInUp">
+            <CardConatiner onPress={() => console.log('pressed 1')}>
+                <ContentContainer>
+                    <WelcomeTitle>{i18n.t(`${TRANSLATION_KEY}.title`, { name: 'Ramez' })}</WelcomeTitle>
+                    {/*
+                        to be added 
+                        <Badge label={'Most Famous'} size={17} />
+                        <Badge label={'New Member'} size={17} />
+                     */}
+
+                    <ScoreTitle>{i18n.t(`${TRANSLATION_KEY}.score_title`)}</ScoreTitle>
+                    <ScoreCountContainer>
+                        <ScoreCount>900000</ScoreCount>
+                        <ScoreCountPrefix> {i18n.t(`${TRANSLATION_KEY}.score_count_prefix`)}</ScoreCountPrefix>
+                    </ScoreCountContainer>
+                </ContentContainer>
+
+                <ImageContainer>
+                    <Image
+                        ref={lottieRef}
+                        source={WelcomeTileImage}
+                    />
+                </ImageContainer>
+            </CardConatiner>
+        </Animatable.View>
+    )
 }
 
 export default WelcomeTile
 
+const CardConatiner = styled(Card).attrs(({
+    containerStyle: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    "margin-15": true,
+    enableShadow: true,
+    elevation: 5
+}))(({
+    backgroundColor: 'white'
+}))
+
+const ContentContainer = styled.View(({
+    flex: 1
+}))
+
+const ImageContainer = styled.View(({
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+}))
+
+const Image = styled(LottieView)(({
+    width: 150
+}))
+
+const WelcomeTitle = styled(Text).attrs({
+    text60: true
+})(({ theme }) => ({
+    marginVertical: theme.rems.x4,
+    marginLeft: theme.rems.x4
+}))
+
+const ScoreTitle = styled(Text).attrs({
+    text70: true,
+})(({ theme }) => ({
+    marginLeft: theme.rems.x4,
+}))
+
+const ScoreCount = styled.Text(({ theme }) => ({
+    marginLeft: theme.rems.x4,
+    fontSize: theme.fonts.header4
+}))
+
+const ScoreCountContainer = styled.View(({
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+}))
+
+const ScoreCountPrefix = styled.Text(({ theme }) => ({
+    paddingBottom: theme.rems.x1
+}))

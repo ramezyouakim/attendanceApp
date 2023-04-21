@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import LottieView from 'lottie-react-native'
-import update_app_image from '../../../assets/animtions/core/update_app/update-app.json'
+import update_app_image from '../../../assets/animtions/core/updateApp/update-app.json'
 import styled from 'styled-components/native'
 import AnimatedLottieView from 'lottie-react-native'
 import { Text, View, Button } from 'react-native-ui-lib';
