@@ -1,4 +1,4 @@
-import React, { Component, ComponentType, ReactNode } from "react";
+import { Component, ComponentType, ReactNode } from "react";
 // import crashlytics from "@react-native-firebase/crashlytics";
 
 export interface ErrorBoundaryProps {

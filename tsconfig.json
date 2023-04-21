@@ -1,4 +1,9 @@
 {
-  "compilerOptions": {},
-  "extends": "expo/tsconfig.base"
+  "include": [
+    "src/**/*.json"
+  ],
+  "compilerOptions": {
+    "resolveJsonModule": true
+  },
+  "extends": "expo/tsconfig.base",
 }

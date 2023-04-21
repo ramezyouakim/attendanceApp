@@ -1,0 +1,7 @@
+{
+    "internet_connectivity_label" : "No Internet Please Check Your Connection!",
+    "app_update" : {
+        "title": "You're using an old version, Please update the App!",
+        "button": "Update the App"
+    }
+}

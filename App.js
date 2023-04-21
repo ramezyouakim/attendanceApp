@@ -1,23 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
+import * as React from 'react';
+import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View, SafeAreaView } from 'react-native';
+import { ConnectionStatusBar } from 'react-native-ui-lib';
 import { ErrorBoundary } from './src/modules/ErrorBoundary/ErrorBoundary.tsx'
+import i18n from './src/core/Localisation/i18n';
+import ManageThemeProvider from './src/core/Constants/Theme/ThemeProvider'
+import AppNavigator from './src/routes/AppNavigator'
+
+
+const CONNECTION_STATUS_BAR_LABEL = i18n.t("internet_connectivity_label")
 
 export default function App() {
 
   return (
     <ErrorBoundary fallback={() => <View><Text>error is working</Text></View>}>
-      <StatusBar />
-      <SafeAreaProvider>
-        <EEEE />
-      </SafeAreaProvider>
-    </ErrorBoundary>
-  );
-}
 
-const EEEE = () => {
-  throw new Error('Testing error boundary');
-    return (
-    <Text>dsds</Text>
+      <SafeAreaProvider>
+        <SafeAreaView>
+          <ManageThemeProvider>
+            <ConnectionStatusBar
+              onConnectionChange={() => console.log('connection changed')}
+              label={CONNECTION_STATUS_BAR_LABEL}
+            />
+
+            <AppNavigator />
+
+          </ManageThemeProvider>
+
+        </SafeAreaView>
+      </SafeAreaProvider>
+
+    </ErrorBoundary>
   )
 }
