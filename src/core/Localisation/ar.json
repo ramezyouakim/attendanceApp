@@ -1,21 +1,67 @@
 {
-    "internet_connectivity_label" : "لا يوجد إنترنت، الرجاء التحقق من الشبكة",
-    "app_update" : {
+    "internet_connectivity_label": "لا يوجد إنترنت، الرجاء التحقق من الشبكة",
+    // "internet_connectivity_label": "لا يوجد إنترنت، الرجاء التحقق من الشبكة\n لا يزال بإمكانك مسح رمز QR.",
+    "app_update": {
         "title": "أنت تستخدم إصدارًا قديمًا ، يرجى تحديث التطبيق",
         "button": "تحديث التطبيق"
     },
-    "home":{
+    "error_boundry_fallback": {
+        "title": "عفوًا ، حدث خطأ ما!",
+        "button": "اذهب إلى الصفحة الرئيسية"
+    },
+    "home": {
         "coming_soon": "قريباً",
-        "welcome_tile":{
+        "welcome_tile": {
             "title": "اهلا {{name}}",
             "score_title": "رصيد نقاطك",
             "score_count_prefix": "نقطة"
         },
         "scan_tile": {
-            "title": "امسح واحصل\n على مكافأة"
+            "title": "امسح \nواحصل\n على مكافأة"
         },
         "redem_tile": {
             "title": "استرداد\nالمكافأة\n الخاصة بك"
         }
+    },
+    "auth": {
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "phone_number": "رقم الهاتف",
+        "or": "أو",
+        "here": "هنا",
+        "login": {
+            "button": "تسجيل الدخول",
+            "google_buton": "تسجيل الدخول باستخدام جوجل",
+            "create_account": "ليس لديك حساب ، أنشئ واحدًا "
+        },
+        "registration": {
+            "button": "إنشاء حساب",
+            "google_buton": "سجل باستخدام جوجل",
+            "already_have_account": "لديك بالفعل حساب ، تسجيل الدخول",
+            "title": "قم بإنشاء حسابك"
+        }
+    },
+    "qr_code_scanner": {
+        "description_title": "امسح رمز QR",
+        "description_body": "قم بمحاذاة الرمز داخل الإطار للمسح الضوئي",
+        "scan_retry": "انقر لإجراء الفحص مرة أخرى"
+    },
+    "camera_permission": {
+        "title": "تصريح الكاميرا",
+        "description": "امنحنا إمكانية الوصول إلى الكاميرا حتى نتمكن من مسح رمز الاستجابة السريعة والحصول على مكافآتك.",
+        "okay_button": "أوافق",
+        "cancel_button": "ليس الآن"
+    },
+    "success_screen": {
+        "title": "رائع ، لقد ربحت {{points}} نقطة",
+        "description": "يسعدنا رؤيتك ونأمل أن نراك في المرة القادمة",
+        "button": "حسنا"
+    },
+    "about_us": {
+        "title": "عنا",
+        "description": "إجتماع الشباب - بكنيسة مقر دير الأنبا بولا - الخميس الساعة ٧م",
+        "dialog_title": "افتح في الخرائط",
+        "dialog_message": "ما هو التطبيق الذي تريد استخدامه؟",
+        "dialog_button": "إلغاء"
     }
 }

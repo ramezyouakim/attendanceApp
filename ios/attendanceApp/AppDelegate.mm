@@ -7,6 +7,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [[RCTI18nUtil sharedInstance] allowRTL:YES];
+
+
   self.moduleName = @"main";
 
   // You can add your custom initial props in the dictionary below.

@@ -3,7 +3,6 @@ import { Card } from 'react-native-ui-lib'
 
 import styled from 'styled-components/native'
 import LottieView, { AnimationObject } from 'lottie-react-native'
-import AnimatedLottieView from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable';
 import i18n from '../../../core/Localisation/i18n'
 
@@ -17,7 +16,7 @@ type SmallTileProps = {
 
 const SmallTile = ({ image, onPressHandler, title, disabled = false }: SmallTileProps) => {
 
-    const lottieRef = useRef<AnimatedLottieView | null>(null);
+    const lottieRef = useRef<LottieView | null>(null);
     useEffect(() => {
         if (lottieRef.current) {
             setTimeout(() => {
@@ -26,7 +25,7 @@ const SmallTile = ({ image, onPressHandler, title, disabled = false }: SmallTile
             }, 100);
         }
     }, [lottieRef.current]);
-
+    
     return (
         <Animatable.View delay={300} animation="zoomIn">
             <CardConatiner onPress={!disabled && onPressHandler}>
@@ -45,6 +44,7 @@ const SmallTile = ({ image, onPressHandler, title, disabled = false }: SmallTile
         </Animatable.View>
 
     )
+    
 }
 
 export default SmallTile

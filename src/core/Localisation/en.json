@@ -1,8 +1,13 @@
 {
     "internet_connectivity_label": "No Internet Please Check Your Connection!",
+    // "internet_connectivity_label": "No Internet Please Check Your Connection!\n you can still scan the QR code.",
     "app_update": {
         "title": "You're using an old version, Please update the App!",
         "button": "Update the App"
+    },
+    "error_boundry_fallback": {
+        "title": "Oops, something went wrong!",
+        "button": "Go To Home"
     },
     "home": {
         "coming_soon": "Coming Soon",
@@ -17,5 +22,47 @@
         "redem_tile": {
             "title": "Redem\nYour\nRewards"
         }
+    },
+    "auth": {
+        "email": "Email",
+        "password": "Password",
+        "phone_number": "Phone Number",
+        "name": "Name",
+        "or": "OR",
+        "here": "Here",
+        "login": {
+            "button": "Login",
+            "google_buton": "Login With Google",
+            "create_account": "Don't have an account, Create one"
+        },
+        "registration": {
+            "button": "Create Account",
+            "google_buton": "Signup With Google",
+            "already_have_account": "Already have an account, Login",
+            "title": "Create Your Account"
+        }
+    },
+    "qr_code_scanner": {
+        "description_title": "Scan The QR Code",
+        "description_body": "Align the QR code within the frame to scan",
+        "scan_retry": "Tap to Scan Again"
+    },
+    "camera_permission": {
+        "title": "Camera Permission",
+        "description": "Give us access to the camera so we can scan the QR code and get your the rewards.",
+        "okay_button": "Continue",
+        "cancel_button": "Not Now"
+    },
+    "success_screen": {
+        "title": "Woohoo, you earned {{points}} points",
+        "description": "We are happy to see you, and we are hoping to see the next time",
+        "button": "Okay"
+    },
+    "about_us": {
+        "title": "About Us",
+        "description": "Youth meeting - Church of the headquarters of Anba Paula Monastery - Thursday at 7 pm",
+        "dialog_title": "Open in Maps",
+        "dialog_message": "What app would you like to use?",
+        "dialog_button": "Cancel"
     }
 }

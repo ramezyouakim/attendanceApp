@@ -9,7 +9,8 @@ i18n.translations = {
   en: en,
   ['en-GB']: en,
   ['en-US']: en,
-  ar: ar
+  ar: ar,
+  ['ar-US']: ar
 }
 
 i18n.locale = Localisation.locale;

@@ -28,5 +28,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+  },
+  "remoteConfig":{
+    "aboutUs":{
+      "description":"إجتماع الشباب - بكنيسة مقر دير الأنبا بولا - الخميس الساعة ٧م",
+      "address": "65 شارع ترعة الجبل حدائق القبة"
+    }
   }
 }

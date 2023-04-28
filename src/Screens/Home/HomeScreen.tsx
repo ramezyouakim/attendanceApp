@@ -8,24 +8,31 @@ import ScanQrTileIcon from '../../../assets/animtions/core/homeScreen/scan-qr-ti
 import RedemGiftsIcon from '../../../assets/animtions/core/homeScreen/redem-gift-tile-icon.json'
 
 import i18n from '../../core/Localisation/i18n';
+import ConnectionStatusBar from '../../modules/ConnectionStatusBar/ConnectionStatusBar';
+import { Routes } from '../../routes/Routes';
+import Navigator from '../../routes/Navigator'
 
 const SCAN_TILE_TITLE = i18n.t("home.scan_tile.title")
 const REDEM_TILE_TITLE = i18n.t("home.redem_tile.title")
 
 const HomeScreen = () => {
 
-    const onScanTilePress = () => { }
+    const onScanTilePress = () => Navigator.navigateTo(Routes.mainStack.qrSanner)
     const onRedemeGiftsTilePress = () => { }
 
-
     return (
-        <Container>
-            <WelcomeTile />
-            <Row>
-                <SmallTile image={ScanQrTileIcon} title={SCAN_TILE_TITLE} onPressHandler={onScanTilePress} />
-                <SmallTile image={RedemGiftsIcon} title={REDEM_TILE_TITLE} onPressHandler={onRedemeGiftsTilePress} disabled />
-            </Row>
-        </Container>
+        <>
+            <Container>
+                <WelcomeTile />
+                <Row>
+                    <SmallTile image={ScanQrTileIcon} title={SCAN_TILE_TITLE} onPressHandler={onScanTilePress} />
+                    <SmallTile image={RedemGiftsIcon} title={REDEM_TILE_TITLE} onPressHandler={onRedemeGiftsTilePress} disabled />
+                </Row>
+
+
+            </Container>
+            <ConnectionStatusBar />
+        </>
     )
 }
 

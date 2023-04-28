@@ -1,8 +1,10 @@
-import { Component, ComponentType, ReactNode } from "react";
+import { Component, ReactNode } from "react";
+import FallbackScreen from "./FallbackScreen";
+import React from "react";
 // import crashlytics from "@react-native-firebase/crashlytics";
 
 export interface ErrorBoundaryProps {
-    fallback: () => ReactNode;
+    // fallback: () => ReactNode;
     children: any
 }
 export class ErrorBoundary extends Component<ErrorBoundaryProps> {
@@ -21,6 +23,6 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps> {
             return this.props.children
         }
 
-        return this.props.fallback();
+        return <FallbackScreen />;
     }
 }

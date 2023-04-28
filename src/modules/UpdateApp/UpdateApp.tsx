@@ -2,16 +2,15 @@ import React, { useEffect, useRef } from 'react'
 import LottieView from 'lottie-react-native'
 import update_app_image from '../../../assets/animtions/core/updateApp/update-app.json'
 import styled from 'styled-components/native'
-import AnimatedLottieView from 'lottie-react-native'
 import { Text, View, Button } from 'react-native-ui-lib';
 import i18n from '../../core/Localisation/i18n'
 
 const APP_UPDATE_TITLE = i18n.t("app_update.title")
 const APP_UPDATE_BUTTON = i18n.t("app_update.button")
 
-const UpdateApp = () => {
+const UpdateAppScreen = () => {
     // workaound after expo update
-    const lottieRef = useRef<AnimatedLottieView | null>(null);
+    const lottieRef = useRef<LottieView | null>(null);
     useEffect(() => {
         if (lottieRef.current) {
             setTimeout(() => {
@@ -29,7 +28,6 @@ const UpdateApp = () => {
         <Container>
             <Header>{APP_UPDATE_TITLE}</Header>
             <Image
-                style={{ width: '100%' }}
                 ref={lottieRef}
                 source={update_app_image}
                 autoPlay
@@ -73,4 +71,4 @@ const UpdateButton = styled(Button).attrs(({ theme }) => ({
     borderRadius: theme.rems.x1
 }))
 
-export default UpdateApp
+export default UpdateAppScreen

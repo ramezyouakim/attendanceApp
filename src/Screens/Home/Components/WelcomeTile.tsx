@@ -5,7 +5,6 @@ import * as Animatable from 'react-native-animatable';
 
 import WelcomeTileImage from '../../../../assets/animtions/core/homeScreen/welcome-tile-image.json'
 import styled from 'styled-components/native';
-import AnimatedLottieView from 'lottie-react-native';
 import i18n from '../../../core/Localisation/i18n';
 
 const TRANSLATION_KEY = 'home.welcome_tile'
@@ -13,7 +12,7 @@ const TRANSLATION_KEY = 'home.welcome_tile'
 const WelcomeTile = () => {
 
     // workaound after expo update
-    const lottieRef = useRef<AnimatedLottieView | null>(null);
+    const lottieRef = useRef<LottieView | null>(null);
     useEffect(() => {
         if (lottieRef.current) {
             setTimeout(() => {

@@ -1,35 +1,50 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
-import { useTheme } from '../core/Constants/Theme/ThemeProvider';
-import UpdateApp from '../modules/UpdateApp/UpdateApp'
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
+import Navigator from './Navigator';
+import { Routes } from './Routes';
+import UpdateApp from '../modules/UpdateApp/UpdateApp';
 import MainNavigator from './MainNavigator';
-import { currentAppVersion } from '../core/Config/Config';
+import AuthNavigator from './AuthNavigator';
 
 const AppNavigator = () => {
+    const navigationRef = useNavigationContainerRef()
 
-    const theme = useTheme()
 
-    function getStageNav(): React.ReactNode {
-        if (currentAppVersion < '1.0.0') {
-            return <UpdateApp />
+    React.useEffect(() => {
+        onRefChange(navigationRef)
+    }, [navigationRef])
+
+    const onRefChange = (ref) => {
+        if (ref) {
+            Navigator.setNavigtor = ref
         }
+    }
 
-        if (true) { //if auth
-            return <MainNavigator />
+    const renderStageNav = (): React.ReactNode => {
+        const navgtionDestination = Navigator.getNavgtionDestination()
+        try {
+            switch (navgtionDestination) {
+                case Routes.coreStack.updateApp:
+                    return <UpdateApp />
+                case Routes.mainStack:
+                    return <MainNavigator />
+                case Routes.authStack:
+                    return <AuthNavigator />
+                default:
+                    return <AuthNavigator />
+            }
+        } catch (error) {
+            return <AuthNavigator />
         }
-
-        //return <LoginScreen/>
     }
 
     return (
         // theme={theme}
-            <NavigationContainer>
-                <StatusBar />
-
-                {getStageNav()}
-
-            </NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
+            <StatusBar />
+            {renderStageNav()}
+        </NavigationContainer>
 
     )
 }
