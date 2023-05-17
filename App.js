@@ -7,31 +7,27 @@ import { ErrorBoundary } from './src/modules/ErrorBoundary/ErrorBoundary.tsx'
 import ManageThemeProvider from './src/core/Constants/Theme/ThemeProvider'
 import AppNavigator from './src/routes/AppNavigator'
 import styled from 'styled-components/native';
+import LoadingOverlay from './src/modules/LoadingOverlay/LoadingOverlay.tsx'
+import Common from './src/core/Services/Common/Common';
+import { observer } from 'mobx-react';
 
-import i18n from './src/core/Localisation/i18n.ts'
+const commonService = new Common()
 
-export default function App() {
-  const currentLang = i18n.locale
+function App() {
 
-  const [appLang, setAppLang] = React.useState()
+  const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
-    if (currentLang == 'ar' || currentLang == 'ar-US') {
-      // if (I18nManager.isRTL) {
-        I18nManager.forceRTL(true);
-      // }
-    } else {
-      if (!I18nManager.isRTL) {
-        I18nManager.forceRTL(false);
-      }
-    }
-    //app will restart
-  }, [])
+    loadLanguage()
+  }, [commonService.appLanguage])
 
-  const languageRestart = async () => {
-    //changing language based on what was chosen
-
+  const loadLanguage = async () => {
+    setLoading(true)
+    await commonService.initialization()
+    setLoading(false)
   }
+
+  if (loading) return null
 
   return (
     <ErrorBoundary>
@@ -41,15 +37,17 @@ export default function App() {
           <ManageThemeProvider>
 
             <AppNavigator />
+            <LoadingOverlay />
 
           </ManageThemeProvider>
-
         </SafeAreaContainer>
       </SafeAreaProvider>
 
     </ErrorBoundary>
   )
 }
+
+export default observer(App)
 
 const SafeAreaContainer = styled(SafeAreaView)(({
   flex: 1

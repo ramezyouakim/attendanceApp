@@ -5,7 +5,8 @@ module.exports = function (api) {
     plugins: [
       ['react-native-reanimated/plugin', {
         relativeSourceLocation: true,
-      },]
+      },],
+      ['@babel/plugin-proposal-decorators', { legacy: true }]
     ],
   };
 };

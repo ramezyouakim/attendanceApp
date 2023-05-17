@@ -5,6 +5,18 @@
         "title": "أنت تستخدم إصدارًا قديمًا ، يرجى تحديث التطبيق",
         "button": "تحديث التطبيق"
     },
+    "errors": {
+        "error_messages": {
+            "default": {
+                "title": "حدث خطأ ما",
+                "message": "حدث خطأ ما ، يرجى المحاولة مرة أخرى!"
+            },
+            "unauthenticated": {
+                "title": "حدث خطأ ما",
+                "message": "الرجاء إعادة تسجيل الدخول"
+            }
+        }
+    },
     "error_boundry_fallback": {
         "title": "عفوًا ، حدث خطأ ما!",
         "button": "اذهب إلى الصفحة الرئيسية"
@@ -63,5 +75,20 @@
         "dialog_title": "افتح في الخرائط",
         "dialog_message": "ما هو التطبيق الذي تريد استخدامه؟",
         "dialog_button": "إلغاء"
+    },
+    "screens_titles": {
+        "home": "الرئيسية",
+        "about_us": "معلومات عنا",
+        "lang_settings": "اللغة: {{appLang}}",
+        "logout": "تسجيل خروج"
+    },
+    "app_langs": {
+        "title": "قم بتغيير لغة التطبيق إلى:",
+        "cancel_button": "إلغاء",
+        "langs": [
+            "English",
+            "العربية",
+            "إلغاء"
+        ]
     }
 }

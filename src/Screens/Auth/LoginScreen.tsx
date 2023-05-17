@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Card, TextField, Text } from "react-native-ui-lib"
+import { Card, TextField, Text } from "react-native-ui-lib"
 import styled from "styled-components/native"
 
 import LogoPlaceholder from '../../../assets/Auth/Login/logo-placeholder-image.png';
@@ -10,6 +10,7 @@ import AuthButton from "./Components/AuthButton";
 import GoogleAuthButton from "./Components/GoogleAuthButton";
 import * as Animatable from 'react-native-animatable';
 import { View } from "react-native";
+import Auth from "../../core/Services/Auth/Auth";
 
 const TRANSLATION_KEY = 'auth.login'
 const EMAIL_TEXT = i18n.t('auth.email')
@@ -23,12 +24,16 @@ const HERE_BUTTON_TEXT = i18n.t('auth.here')
 
 const LoginScreen = () => {
 
+    const auth = new Auth()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const setInputs = (setter) => (value) => {
         setter(value)
     }
+
+    const login = () => auth.login(email, password)
 
     return (
         <Container>
@@ -68,7 +73,7 @@ const LoginScreen = () => {
 
             <ButtonsContainer>
                 <Animatable.View delay={600} animation="fadeInUp">
-                    <AuthButton label={LOGIN_BUTTON_TEXT} onPressHandler={() => { }} />
+                    <AuthButton label={LOGIN_BUTTON_TEXT} onPressHandler={login} />
                     <Text center margin-15>{OR_TEXT}</Text>
                     <GoogleAuthButton label={GOOGLE_BUTTON_TEXT} />
 
@@ -135,6 +140,4 @@ const TextInput = styled(TextField).attrs(({
     validateOnBlur: true,
     maxLength: 30,
     useGestureHandlerInput: true
-}))({
-    lineHeight: '20px'
-})
+}))({})

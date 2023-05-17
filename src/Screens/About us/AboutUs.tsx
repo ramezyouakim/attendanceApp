@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react'
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { showLocation } from 'react-native-map-link';
 
 import styled from 'styled-components/native';
@@ -23,13 +23,13 @@ const AboutUsScreen = () => {
 
     const animRef = useRef()
 
-    useFocusEffect(useCallback(()=>{
+    useFocusEffect(useCallback(() => {
         animRef?.current?.fadeInUp()
-    },[]))
+    }, []))
 
     const openMap = () => {
         showLocation({
-            latitude:  30.0799429,
+            latitude: 30.0799429,
             longitude: 31.2823201,
             title: 'كنيسة مقر دير الأنبا بولا - حدائق القبة', // optional
             googleForceLatLon: true, // optionally force GoogleMaps to use the latlon for the query instead of the title
@@ -44,13 +44,12 @@ const AboutUsScreen = () => {
     return (
         <>
             <Container>
-                <Animatable.View ref={animRef}>
-                <Text text50 marginB-10>{TITLE}</Text>
-                <Text text70 marginB-50>{DESCRIPTION}</Text>
-
-                <Card onPress={openMap} enableShadow>
-                    <Image source={MapSnapShot} />
-                </Card>
+                <Animatable.View ref={animRef} >
+                    <TextView text50 marginB-10>{TITLE}</TextView>
+                    <TextView text70 marginB-50>{DESCRIPTION}</TextView>
+                    <Card onPress={openMap} enableShadow>
+                        <Image source={MapSnapShot} />
+                    </Card>
                 </Animatable.View>
             </Container>
             <ConnectionStatusBar />
@@ -66,9 +65,14 @@ const Container = styled(ScrollView)(({ theme }) => ({
     backgroundColor: ' white'
 }))
 
+const TextView = styled(Text)(({ theme }) => ({
+    // padding: theme.rems.x4,
+    textAlign: 'left'
+}))
+
 const Image = styled(Card.Image)(({ theme }) => ({
     width: theme.dimension.window.width * 0.90,
     height: 200,
     resizeMode: 'contain',
-    alignSelf: 'center'
+    alignSelf: 'left'
 }))

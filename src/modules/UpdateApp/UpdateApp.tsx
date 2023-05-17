@@ -26,7 +26,7 @@ const UpdateAppScreen = () => {
 
     return (
         <Container>
-            <Header>{APP_UPDATE_TITLE}</Header>
+            <Header marginH-20>{APP_UPDATE_TITLE}</Header>
             <Image
                 ref={lottieRef}
                 source={update_app_image}

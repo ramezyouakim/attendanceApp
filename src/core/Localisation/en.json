@@ -5,6 +5,18 @@
         "title": "You're using an old version, Please update the App!",
         "button": "Update the App"
     },
+    "errors": {
+        "error_messages": {
+            "default": {
+                "title": "Something went wrong",
+                "message": "Something went wrong, Please try again!"
+            },
+            "unauthenticated": {
+                "title": "Something went wrong",
+                "message": "Please Re Login"
+            }
+        }
+    },
     "error_boundry_fallback": {
         "title": "Oops, something went wrong!",
         "button": "Go To Home"
@@ -64,5 +76,20 @@
         "dialog_title": "Open in Maps",
         "dialog_message": "What app would you like to use?",
         "dialog_button": "Cancel"
+    },
+    "screens_titles": {
+        "home": "Home",
+        "about_us": "About Us",
+        "lang_settings": "Language: {{appLang}}",
+        "logout": "Logout"
+    },
+    "app_langs": {
+        "title": "Change the app language to:",
+        "cancel_button": "Cancel",
+        "langs": [
+            "English",
+            "العربية",
+            "Cancel"
+        ]
     }
 }

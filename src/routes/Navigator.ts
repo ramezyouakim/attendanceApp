@@ -1,5 +1,6 @@
 import { shouldUpdateApp } from '../core/Config/AppVersion'
-import { CoreRoutes, Routes } from './Routes'
+import User from '../core/Services/User/User'
+import { CoreRoutes, MainNavs, Routes } from './Routes'
 import {
     CommonActions,
     NavigationAction,
@@ -13,11 +14,14 @@ import {
 
 class Navigator {
     private static instance: any
+    user: User
 
     constructor() {
         if (Navigator.instance) return Navigator.instance
 
         Navigator.instance = this
+
+        this.user = new User()
     }
 
     set setNavigtor(ref) {
@@ -30,14 +34,13 @@ class Navigator {
 
             if (shouldUpdate) return CoreRoutes.updateApp
 
-            if (true) return Routes.mainStack //if auth
+            if (this.user.isLoggedIn) return MainNavs.mainStack
 
-            return Routes.authStack
+            return MainNavs.authStack
         } catch (error) {
             return CoreRoutes.fallback
         }
     }
-
 
     showMain = () => {
         try {
@@ -47,9 +50,9 @@ class Navigator {
                 Object.values(navgtionDestination)[0]
                 : navgtionDestination
 
-            this.reset({routeName: destination})
+            this.reset({ routeName: destination })
         } catch (error) {
-            console.log(error)
+            console.log("showMain ", error)
         }
     }
 

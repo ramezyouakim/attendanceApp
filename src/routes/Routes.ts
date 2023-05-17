@@ -6,7 +6,8 @@ export const AuthRoutes = {
 export const MainRoutes = {
     home: 'HomeScreen',
     qrSanner: 'QRSannerScreen',
-    sucess: 'SucessScreen'
+    sucess: 'SucessScreen',
+    aboutUs: 'AboutUsScreen'
 } as const
 
 export const CoreRoutes = {
@@ -14,8 +15,14 @@ export const CoreRoutes = {
     fallback: 'FallbackScreen'
 } as const
 
+export const MainNavs = {
+    mainStack: 'mainStack',
+    authStack: 'authStack'
+} as const
+
 export const Routes = {
-    authStack: AuthRoutes,
-    mainStack: MainRoutes,
+    [MainNavs.authStack]: AuthRoutes,
+    [MainNavs.mainStack]: MainRoutes,
     coreStack: CoreRoutes
 } as const
+

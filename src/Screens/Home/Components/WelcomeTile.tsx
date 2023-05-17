@@ -6,8 +6,12 @@ import * as Animatable from 'react-native-animatable';
 import WelcomeTileImage from '../../../../assets/animtions/core/homeScreen/welcome-tile-image.json'
 import styled from 'styled-components/native';
 import i18n from '../../../core/Localisation/i18n';
+import { observer } from 'mobx-react';
+import User from '../../../core/Services/User/User';
 
 const TRANSLATION_KEY = 'home.welcome_tile'
+
+const user = new User()
 
 const WelcomeTile = () => {
 
@@ -24,9 +28,9 @@ const WelcomeTile = () => {
 
     return (
         <Animatable.View animation="zoomInUp">
-            <CardConatiner onPress={() => console.log('pressed 1')}>
+            <CardConatiner>
                 <ContentContainer>
-                    <WelcomeTitle>{i18n.t(`${TRANSLATION_KEY}.title`, { name: 'Ramez' })}</WelcomeTitle>
+                    <WelcomeTitle>{i18n.t(`${TRANSLATION_KEY}.title`, { name: user.fullname || '' })}</WelcomeTitle>
                     {/*
                         to be added 
                         <Badge label={'Most Famous'} size={17} />
@@ -35,7 +39,7 @@ const WelcomeTile = () => {
 
                     <ScoreTitle>{i18n.t(`${TRANSLATION_KEY}.score_title`)}</ScoreTitle>
                     <ScoreCountContainer>
-                        <ScoreCount>900000</ScoreCount>
+                        <ScoreCount>{user.score.total_score || 0}</ScoreCount>
                         <ScoreCountPrefix> {i18n.t(`${TRANSLATION_KEY}.score_count_prefix`)}</ScoreCountPrefix>
                     </ScoreCountContainer>
                 </ContentContainer>
@@ -51,7 +55,7 @@ const WelcomeTile = () => {
     )
 }
 
-export default WelcomeTile
+export default observer(WelcomeTile)
 
 const CardConatiner = styled(Card).attrs(({
     containerStyle: {

@@ -1,6 +1,6 @@
 import { BarCodeScanner } from "expo-barcode-scanner";
 import React, { useState, useEffect } from "react"
-import { ActivityIndicator, Button, StyleSheet } from "react-native";
+import { ActivityIndicator, Button, StyleSheet, Vibration } from "react-native";
 import styled from "styled-components/native";
 import { Text } from 'react-native-ui-lib';
 import Navigator from '../../../routes/Navigator'
@@ -10,10 +10,15 @@ import { Routes } from "../../../routes/Routes";
 import i18n from '../../../core/Localisation/i18n'
 import * as Animatable from 'react-native-animatable';
 import CameraPermission from "./CameraPermission";
+import Common from "../../../core/Services/Common/Common";
+import UserScore from "../../../core/Services/UserScore/UserScore";
 
 const DESCRIPTION_TITLE = i18n.t('qr_code_scanner.description_title')
 const DESCRIPTION_BODY = i18n.t('qr_code_scanner.description_body')
 const SCAN_RETRY = i18n.t('qr_code_scanner.scan_retry')
+
+const commonService = new Common()
+const userScoreService = new UserScore()
 
 const QRSannerScreen = () => {
 
@@ -31,10 +36,25 @@ const QRSannerScreen = () => {
         })();
     }
 
-    const handleBarCodeScanned = ({ type, data }) => {
-        setScanned(true);
-        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-        Navigator.reset({ routeName: Routes.mainStack.sucess, position: 2 })
+    const handleBarCodeScanned = async ({ type, data }) => {
+        try {
+            Vibration.vibrate(1000)
+            commonService.setLoadingOverlay(true)
+            setScanned(true);
+            const results = await userScoreService.scanQrCode(data)
+            if (results) {
+                setScanned(false);
+                userScoreService.updateScore(results.score)
+                Navigator.reset({ routeName: Routes.mainStack.sucess, position: 2 })
+                userScoreService.setShowCelebration(true)
+            }
+            commonService.setLoadingOverlay(false)
+
+        } catch (error) {
+            console.log("handleBarCodeScanned ", error)
+            setScanned(false);
+            commonService.setLoadingOverlay(false)
+        } 
     }
 
     if (hasPermission === null) {
