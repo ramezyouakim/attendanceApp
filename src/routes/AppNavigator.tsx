@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import Navigator from './Navigator';
 import { MainNavs, Routes } from './Routes';
@@ -10,9 +9,10 @@ import { observer } from 'mobx-react';
 import User from '../core/Services/User/User';
 import styled from 'styled-components/native'
 import { ActivityIndicator } from 'react-native';
-import Common from '../core/Services/Common/Common';
+import UISharedStore from '../core/Services/UISharedStore/UISharedStore';
 
 const userService = new User()
+const uiShareStore = new UISharedStore()
 
 const AppNavigator = () => {
     const navigationRef = useNavigationContainerRef()
@@ -20,7 +20,7 @@ const AppNavigator = () => {
     React.useEffect(() => {
         onRefChange(navigationRef)
         userService.initialization()
-    }, [navigationRef, userService.isLoggedIn])
+    }, [navigationRef])
 
     const onRefChange = (ref) => {
         if (ref) {
@@ -28,7 +28,7 @@ const AppNavigator = () => {
         }
     }
 
-    if (userService.loading) return <LoadingIndicator />
+    if ((userService.loading) || (uiShareStore.loadingOverlay && userService.phonenumber)) return <LoadingIndicator /> // needs refactor the app is re-rendered before the user object is set (the isLoggedIn is called before setter computed method of isLoggedIn )
 
     const renderStageNav = (): React.ReactNode => {
         const navgtionDestination = Navigator.getNavgtionDestination()
@@ -51,7 +51,6 @@ const AppNavigator = () => {
     return (
         // theme={theme}
         <NavigationContainer ref={navigationRef}>
-            <StatusBar />
             {renderStageNav()}
         </NavigationContainer>
 

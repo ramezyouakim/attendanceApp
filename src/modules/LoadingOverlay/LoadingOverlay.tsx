@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
-import Common from '../../core/Services/Common/Common';
+import UISharedStore from '../../core/Services/UISharedStore/UISharedStore';
 
 const LoadingOverlay = () => {
-    const common = new Common()
+    const uiSharedStore = new UISharedStore()
 
     return (
         <Spinner
-            visible={common.loadingOverlay}
+            visible={uiSharedStore.loadingOverlay}
             textContent={'Loading...'}
         // textStyle = { styles.spinnerTextStyle }
         />

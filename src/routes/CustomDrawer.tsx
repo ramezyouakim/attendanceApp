@@ -47,11 +47,11 @@ function CustomDrawerContent() {
             routeName: MainRoutes.aboutUs,
             onPressHandler: () => Navigator.reset({ routeName: MainRoutes.aboutUs, position: 0 })
         },
-        // {
-        //     title: i18n.t('screens_titles.lang_settings', { appLang: lang[commonService.appLangLocale] }),
-        //     routeName: MainRoutes.aboutUs,
-        //     onPressHandler: () => showActionSheet()
-        // },
+        {
+            title: i18n.t('screens_titles.lang_settings', { appLang: lang[commonService.appLangLocale] }),
+            routeName: MainRoutes.aboutUs,
+            onPressHandler: () => showActionSheet()
+        },
         {
             title: i18n.t('screens_titles.logout'),
             onPressHandler: () => authService.logout()

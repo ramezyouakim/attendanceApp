@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { SafeAreaView, I18nManager } from 'react-native';
 
@@ -18,10 +17,10 @@ function App() {
   const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
-    loadLanguage()
+    initServices()
   }, [commonService.appLanguage])
 
-  const loadLanguage = async () => {
+  const initServices = async () => {
     setLoading(true)
     await commonService.initialization()
     setLoading(false)

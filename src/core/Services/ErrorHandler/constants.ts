@@ -18,7 +18,12 @@ const unauthenticatedErrorMessage = {
     message: i18n.t('errors.error_messages.unauthenticated.message')
 }
 
+const emptyFields = i18n.t('errors.error_messages.emptyFields')
+const passowordMisMatch = i18n.t('errors.error_messages.passowordMisMatch')
+
 export const ErrorMessages = {
     default: defaultErrorMessage,
     unauthenticatedErrorMessage,
+    emptyFields,
+    passowordMisMatch
 } as const

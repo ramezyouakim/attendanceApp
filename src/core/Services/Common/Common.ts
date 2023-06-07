@@ -1,7 +1,6 @@
 import { Service } from "../types"
 import { action, computed, makeObservable, observable } from "mobx"
 import RNRestart from 'react-native-restart';
-import * as Localisation from 'expo-localization';
 import { APPLanguages } from "./types";
 import i18n from "../../Localisation/i18n";
 import { I18nManager } from "react-native";
@@ -9,25 +8,44 @@ import ErrorHandler from "../ErrorHandler/ErrorHandler";
 import { ErrorMessages } from "../ErrorHandler/constants";
 import { storeData } from "../../Utils/Storage";
 import { getData } from "../../Utils/Storage";
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { api } from "../Backend/api";
+import { currentAppVersion } from "../../Config/AppVersion";
+import UISharedStore from "../UISharedStore/UISharedStore";
 
 class Common implements Service {
     index = 0
     private static instance
 
-    @observable loadingOverlay: boolean
     @observable appLanguage: APPLanguages
+    @observable remoteAppVersion: string
+    private uiSharedStore: UISharedStore;
+
 
     constructor() {
         if (Common.instance) return Common.instance
 
         Common.instance = this
-
+        this.uiSharedStore = new UISharedStore()
         makeObservable(this)
-
-        this.loadingOverlay = false
     }
 
     async initialization() {
+        this.initGoogleSignin()
+        await this.initLanguage()
+        await this.initAppVersion()
+    }
+
+    async initAppVersion() {
+        try {
+            const response = await api.appInfo.appVersion()
+            this.setRemoteAppVersion(response?.appVersion || currentAppVersion)
+        } catch (error) {
+
+        }
+    }
+
+    async initLanguage() {
         const storedLang: APPLanguages = await this.getLangDataFromStorage()
 
         if (storedLang) {
@@ -37,19 +55,18 @@ class Common implements Service {
         }
 
         const localLang = this.appLangLocale
-        
+
         if (localLang == 'ar' || localLang == 'ar-US') {
             this.changeAppRTL(APPLanguages.arabic)
             this.setAppLanguage(APPLanguages.arabic)
         } else {
             this.changeAppRTL(APPLanguages.english)
             this.setAppLanguage(APPLanguages.english)
-
         }
     }
 
-    @action setLoadingOverlay(state: boolean) {
-        this.loadingOverlay = state
+    @action setRemoteAppVersion(version: string) {
+        this.remoteAppVersion = version
     }
 
     restartApp() {
@@ -61,18 +78,19 @@ class Common implements Service {
     }
 
     async changeAppLanguage(language: APPLanguages) {
-        this.setLoadingOverlay(true)
+        this.uiSharedStore.setLoadingOverlay(true)
         try {
             this.setAppLanguage(language)
             await this.writeLangDataToStorage(language)
             this.changeAppRTL(language)
-            this.setLoadingOverlay(false)
+            this.uiSharedStore.setLoadingOverlay(false)
+            this.restartApp()
         } catch (error) {
             console.log(error)
-            this.setLoadingOverlay(false)
+            this.uiSharedStore.setLoadingOverlay(false)
             ErrorHandler.showErrorMessage(ErrorMessages.default.title, ErrorMessages.default.message)
         }
-        this.setLoadingOverlay(false)
+        this.uiSharedStore.setLoadingOverlay(false)
     }
 
     changeAppRTL(language: APPLanguages) {
@@ -82,7 +100,6 @@ class Common implements Service {
             } else {
                 I18nManager.forceRTL(false);
             }
-            this.restartApp()
         } catch (error) {
             console.log(error)
         }
@@ -112,6 +129,21 @@ class Common implements Service {
 
     private async getLangDataFromStorage() {
         return await getData(this.appLangStorageKey)
+    }
+
+    private initGoogleSignin() {
+        GoogleSignin.configure({
+            // scopes: [''], // what API you want to access on behalf of the user, default is email and profile
+            webClientId: '304470075083-sdrb57rvp6fprp3ds4rtigmhv1nr82hg.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+            offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+            // hostedDomain: '', // specifies a hosted domain restriction
+            forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+            // accountName: '', // [Android] specifies an account name on the device that should be used
+            iosClientId: '304470075083-q003tu3vqsrgsp408lnuin09ki0le3ta.apps.googleusercontent.com', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+            // googleServicePlistPath: '', // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
+            // openIdRealm: '', // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
+            profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+        });
     }
 }
 

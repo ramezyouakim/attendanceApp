@@ -7,8 +7,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [[RCTI18nUtil sharedInstance] allowRTL:YES];
-
 
   self.moduleName = @"main";
 

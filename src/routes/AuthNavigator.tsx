@@ -7,6 +7,11 @@ import { useState } from 'react';
 import LoginScreen from '../Screens/Auth/LoginScreen';
 import RegistrationScreen from '../Screens/Auth/RegistrationScreen';
 import { AuthRoutes } from './Routes';
+import AddPhoneNumberScreen from '../Screens/Auth/AddPhoneNumberScreen';
+import i18n from '../core/Localisation/i18n';
+import ForgotPasswordScreen from '../Screens/Auth/ForgotPassword/ForgotPasswordScreen';
+import VerfiyPassowordOTPScreen from '../Screens/Auth/ForgotPassword/VerfiyPassowordOTPScreen';
+import ResetPasswordScreen from '../Screens/Auth/ForgotPassword/ResetPasswordScreen'
 
 const AuthStack = createNativeStackNavigator();
 
@@ -23,10 +28,17 @@ const AuthNavigator = () => {
     if (loading) return <LoadingIndicator />
 
     return (
-        <AuthStack.Navigator  screenOptions={{ header: () => null }} >
+        <AuthStack.Navigator>
+            <AuthStack.Group screenOptions={{ header: () => null }}>
+
+                <AuthStack.Screen name={AuthRoutes.login} component={LoginScreen} />
+                <AuthStack.Screen name={AuthRoutes.registrationScreen} component={RegistrationScreen} />
+            </AuthStack.Group>
+            <AuthStack.Screen name={AuthRoutes.addPhoneNumber} component={AddPhoneNumberScreen} options={{ title: i18n.t('auth.add_phone_number.title') }} />
             <AuthStack.Group>
-                <AuthStack.Screen name={AuthRoutes.login} component={LoginScreen}/>
-                <AuthStack.Screen name={AuthRoutes.registrationScreen} component={RegistrationScreen}/>
+                <AuthStack.Screen name={AuthRoutes.forgotPassword} component={ForgotPasswordScreen} options={{ title: i18n.t('auth.forgot_password.title') }} />
+                <AuthStack.Screen name={AuthRoutes.verfiyPasswordOTP} component={VerfiyPassowordOTPScreen} options={{ title: i18n.t('auth.verfiy_passoword_OTP.title') }} />
+                <AuthStack.Screen name={AuthRoutes.resetPassword} component={ResetPasswordScreen} options={{ title: i18n.t('auth.reset_passoword.title') }} />
             </AuthStack.Group>
         </AuthStack.Navigator>
     )

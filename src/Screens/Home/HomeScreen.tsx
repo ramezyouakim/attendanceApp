@@ -15,12 +15,15 @@ import Navigator from '../../routes/Navigator'
 import celebration from '../../../assets/animtions/core/homeScreen/home-celebrate.json'
 import UserScore from '../../core/Services/UserScore/UserScore';
 import { observer } from 'mobx-react';
+import User from '../../core/Services/User/User';
 
 
 const SCAN_TILE_TITLE = i18n.t("home.scan_tile.title")
 const REDEM_TILE_TITLE = i18n.t("home.redem_tile.title")
 
 const userScoreService = new UserScore()
+const user = new User()
+
 
 const HomeScreen = () => {
 

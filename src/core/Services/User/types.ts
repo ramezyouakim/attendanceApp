@@ -10,5 +10,5 @@ export type USER = {
 
 export type UserScore = {
     total_score: number
-    last_scan_at: Date
+    last_scan_at: Date | null | undefined
 }

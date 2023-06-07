@@ -7,7 +7,6 @@ import CryptoJS from "react-native-crypto-js";
 import { KEYSEN } from "../Backend/contants"
 import { api } from "../Backend/api"
 
-
 class User implements Service {
     index = 1
     private static instance
@@ -17,6 +16,7 @@ class User implements Service {
     accessToken: string
     refreshToken: string
     last_seen_at: Date
+    phonenumber: string
     @observable score: UserScore
     @observable loggedIn: boolean
     @observable loading: boolean
@@ -34,37 +34,64 @@ class User implements Service {
     }
 
     async initialization() {
-        this.setLoading(true)
-        const token = await this.getStoredTokens()
+        try {
+            this.setLoading(true)
+            const token = await this.getStoredTokens()
 
-        if (!token || Object.keys(token)?.length === 0) {
+            if (!token || Object.keys(token)?.length === 0) {
+                this.setLoading(false)
+                return
+            }
+
+            this.accessToken = token.accessToken
+            this.refreshToken = token.refreshToken
+
+            const userInfo = await this.getUserInfo()
+
+            if (!userInfo) {
+                await deleteData(this.userStorageKey)
+                this.setLoading(false)
+                return
+            }
+
+            await this.setUser({ ...userInfo, accessToken: token.accessToken, refreshToken: token.refreshToken })
             this.setLoading(false)
-            return
-        }
-
-        this.accessToken = token.accessToken
-        const userInfo = await this.getUserInfo()
-
-        if (!userInfo) {
-            await deleteData(this.userStorageKey)
+        } catch (error) {
+            console.log(error)
             this.setLoading(false)
-            return
         }
-
-        await this.setUser({ ...userInfo, accessToken: token.accessToken, refreshToken: token.refreshToken })
-        this.setLoading(false)
     }
 
-    // async login() {
-    //     await this.setUser()
-    // }
+    async getUserInfo() {
+        const response = await api.user.getUserInfo()
 
-    logout() {
+        if (!response) return null
 
+        return response
+    }
+
+    resetUser = async () => {
+        await this.setUser({
+            email: null,
+            _id: null,
+            fullname: null,
+            accessToken: null,
+            refreshToken: null,
+            last_seen_at: null,
+            score: {
+                total_score: 0,
+                last_scan_at: null
+            },
+            phonenumber: null
+        })
+    }
+
+    async logout() {
+        await this.resetUser()
+        await deleteData(this.userStorageKey)
     }
 
     async setUser(user) {
-        this.setIsLoggedIn(Boolean(user?.accessToken && user?.refreshToken))
         this.email = user?.email
         this.userID = user?._id
         this.fullname = user?.fullname
@@ -72,11 +99,13 @@ class User implements Service {
         this.refreshToken = user?.refreshToken
         this.last_seen_at = user?.last_seen_at
         this.score = user?.score
-        await this.writeUserDataToStorage()    
+        this.phonenumber = user?.phonenumber
+        await this.writeUserDataToStorage()
+        this.setIsLoggedIn(Boolean(user?.accessToken && user?.refreshToken))
     }
 
     @computed get isLoggedIn(): Boolean {
-        return Boolean(this.loggedIn)
+        return Boolean(this.loggedIn) && Boolean(this.phonenumber)
     }
 
     @action private setIsLoggedIn(state: boolean) {
@@ -92,13 +121,6 @@ class User implements Service {
         // const refreshTokenData = CryptoJS.SHA256.encrypt(this.refreshToken, KEYSEN.tokenSecret).toString();
 
         await storeData(this.userStorageKey, { accessToken: this.accessToken, refreshToken: this.refreshToken })
-    }
-
-    async getUserInfo() {
-        const response = await api.user.getUserInfo()
-        if (!response) return null
-
-        return response
     }
 
     private async getStoredTokens() {

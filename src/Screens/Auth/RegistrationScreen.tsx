@@ -1,12 +1,20 @@
 import React, { useState } from "react"
-import { Button, Card, TextField, Text } from "react-native-ui-lib"
+import { Card, TextField, Text } from "react-native-ui-lib"
 import styled from "styled-components/native"
 
 import ConnectionStatusBar from "../../modules/ConnectionStatusBar/ConnectionStatusBar";
 import i18n from "../../core/Localisation/i18n";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import GoogleAuthButton from "./Components/GoogleAuthButton";
 import AuthButton from "./Components/AuthButton";
+import { AuthRoutes } from "../../routes/Routes";
+import Navigator from '../../routes/Navigator'
+import ErrorHandler from "../../core/Services/ErrorHandler/ErrorHandler";
+import { ErrorMessages } from "../../core/Services/ErrorHandler/constants";
+import { validatePhoneNumber } from "../../core/Utils/helper";
+import Auth from "../../core/Services/Auth/Auth";
+import { observer } from "mobx-react";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const TRANSLATION_KEY = 'auth.registration'
 const NAME_TEXT = i18n.t('auth.name')
@@ -21,6 +29,8 @@ const HERE_BUTTON_TEXT = i18n.t('auth.here')
 const CREATE_ACCOUNT_TITLE = i18n.t(`${TRANSLATION_KEY}.title`)
 
 const RegistrationScreen = () => {
+    const auth = new Auth()
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -30,8 +40,25 @@ const RegistrationScreen = () => {
         setter(value)
     }
 
+    const createAccount = () => {
+        if (
+            name?.replace(/\s/g, '').length < 1 ||
+            email?.replace(/\s/g, '').length < 1 ||
+            password?.replace(/\s/g, '').length < 1 ||
+            phonenumber?.replace(/\s/g, '').length < 1
+        ) {
+            ErrorHandler.showErrorMessage(ErrorMessages.default.title, ErrorMessages.emptyFields)
+            return
+        }
+
+        auth.createAccount(email, password, name, phonenumber)
+    }
+
+    const goToLogin = () => Navigator.reset({ routeName: AuthRoutes.login })
+
+
     return (
-        <ScrollView style={{ backgroundColor: 'white' }} showsVerticalScrollIndicator={false}>
+        <KeyboardAwareScrollView style={{ backgroundColor: 'white' }} showsVerticalScrollIndicator={false}>
             <Container>
                 <Text center margin-20 text50>{CREATE_ACCOUNT_TITLE}</Text>
                 <InputsContainer>
@@ -39,17 +66,17 @@ const RegistrationScreen = () => {
                     <TextInput
                         placeholder={NAME_TEXT}
                         onChangeText={setInputs(setName)}
-                        secureTextEntry
                         validate={['required', (value) => value.length > 6]}
-                        validationMessage={['Field is required']}
+                        validationMessage={[i18n.t('errors.fields_validation.required')]}
                     />
                     <SeparatorLine />
 
                     <TextInput
                         placeholder={EMAIL_TEXT}
+                        keyboardType='email-address'
                         onChangeText={setInputs(setEmail)}
                         validate={['required', 'email', (value) => value.length > 6]}
-                        validationMessage={['Field is required', 'Email is invalid']}
+                        validationMessage={[i18n.t('errors.fields_validation.required'), i18n.t('errors.fields_validation.invalid_email')]}
 
                     />
                     <SeparatorLine />
@@ -57,9 +84,9 @@ const RegistrationScreen = () => {
                     <TextInput
                         placeholder={PHONENUMBER_TEXT}
                         onChangeText={setInputs(setPhonenumber)}
-                        secureTextEntry
-                        validate={['required', (value) => value.length > 6]}
-                        validationMessage={['Field is required', 'Invalid Phone Number']}
+                        keyboardType='phone-pad'
+                        validate={['required', (value) => validatePhoneNumber(value)]}
+                        validationMessage={[i18n.t('errors.fields_validation.required'), i18n.t('errors.fields_validation.invalid_phonenumber')]}
                     />
                     <SeparatorLine />
 
@@ -68,17 +95,17 @@ const RegistrationScreen = () => {
                         onChangeText={setInputs(setPassword)}
                         secureTextEntry
                         validate={['required', (value) => value.length > 6]}
-                        validationMessage={['Field is required', 'Password is too short']}
+                        validationMessage={[i18n.t('errors.fields_validation.required'), i18n.t('errors.fields_validation.invalid_password')]}
                     />
 
                 </InputsContainer>
 
                 <ButtonsContainer>
-                    <AuthButton label={LOGIN_BUTTON_TEXT} onPressHandler={() => { }} />
+                    <AuthButton label={LOGIN_BUTTON_TEXT} onPressHandler={createAccount} />
                     <Text center margin-15>{OR_TEXT}</Text>
                     <GoogleAuthButton label={GOOGLE_BUTTON_TEXT} />
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={goToLogin}>
                         <Text center margin-20>
                             {ALREADY_HAVE_ACCOUNT_BUTTON_TEXT}
                             <Text blue40> {HERE_BUTTON_TEXT}</Text>
@@ -87,11 +114,11 @@ const RegistrationScreen = () => {
                 </ButtonsContainer>
                 <ConnectionStatusBar />
             </Container>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }
 
-export default RegistrationScreen
+export default observer(RegistrationScreen)
 
 const Container = styled.View(({ theme }) => ({
     flex: 1,

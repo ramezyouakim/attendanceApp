@@ -1,8 +1,15 @@
 export enum BackendUrlPaths {
+    appVersion = '/app_version',
     login = '/thegatekeeper/signinWorrier',
+    createAccount = '/thegatekeeper/signupWorrier',
+    googleAuth = '/thegatekeeper/google',
+    forgotPassoword = '/thegatekeeper/forget_password',
+    verfiyPasswordOTP = '/thegatekeeper/forget_password_verfiy',
+    resetPassoword = '/thegatekeeper/reset_password',
     logout = '/thegatekeeper/logout',
     refreshToken = '/thegatekeeper/refreshWorrier',
-    userInfo = '/thegatekeeper/userInfo',
+    userInfo = '/user_info',
+    updatePhoneNumber = '/user_info/updatePhoneNumber',
     userScroeScan = '/user_score/scan_qr_code'
 }
 

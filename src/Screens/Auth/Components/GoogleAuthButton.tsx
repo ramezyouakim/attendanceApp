@@ -3,18 +3,22 @@ import { Button as btn } from "react-native-ui-lib"
 import React from "react"
 import GoogleIcon from '../../../../assets/Auth/google-icon.png'
 import { Image } from 'react-native'
+import { observer } from "mobx-react"
+import Auth from "../../../core/Services/Auth/Auth"
 
 type GoogleAuthButtonProps = {
     label: string
 }
 
+const authService = new Auth()
+
 const GoogleAuthButton = ({ label }: GoogleAuthButtonProps) => {
     return (
-        <Button label={label} onPressHandler={() => { }} />
+        <Button label={label} onPress={authService.googleAuth} />
     )
 }
 
-export default GoogleAuthButton
+export default observer(GoogleAuthButton)
 
 export const Button = styled(btn).attrs(({ theme }) => ({
     backgroundColor: theme.colors.gray,

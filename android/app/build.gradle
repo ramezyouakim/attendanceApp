@@ -113,7 +113,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.attendanceapp"
+    namespace "com.ramez.attendanceApp"
     defaultConfig {
         applicationId 'com.ramez.attendanceApp'
         minSdkVersion rootProject.ext.minSdkVersion

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react'
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { showLocation } from 'react-native-map-link';
 
 import styled from 'styled-components/native';
@@ -11,6 +11,8 @@ import { Card, Text } from 'react-native-ui-lib';
 import MapSnapShot from '../../../assets/AboutUs/mapSnapShot.png'
 import * as Animatable from 'react-native-animatable';
 import { useFocusEffect } from '@react-navigation/native';
+import { isIOS } from '../../core/Utils/helper';
+import { observer } from 'mobx-react';
 
 const TRANSLATION_KEY = 'about_us'
 const TITLE = i18n.t(`${TRANSLATION_KEY}.title`)
@@ -57,7 +59,7 @@ const AboutUsScreen = () => {
     )
 }
 
-export default AboutUsScreen
+export default observer(AboutUsScreen)
 
 const Container = styled(ScrollView)(({ theme }) => ({
     flex: 1,
@@ -66,7 +68,6 @@ const Container = styled(ScrollView)(({ theme }) => ({
 }))
 
 const TextView = styled(Text)(({ theme }) => ({
-    // padding: theme.rems.x4,
     textAlign: 'left'
 }))
 
@@ -74,5 +75,5 @@ const Image = styled(Card.Image)(({ theme }) => ({
     width: theme.dimension.window.width * 0.90,
     height: 200,
     resizeMode: 'contain',
-    alignSelf: 'left'
+    alignSelf: 'flex-start' 
 }))

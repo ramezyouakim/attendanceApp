@@ -7,6 +7,7 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 
 import expo.modules.ReactActivityDelegateWrapper;
 
@@ -17,7 +18,7 @@ public class MainActivity extends ReactActivity {
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
-    sharedI18nUtilInstance.allowRTL(context, true);
+    sharedI18nUtilInstance.allowRTL(getApplicationContext(), true);
 
     setTheme(R.style.AppTheme);
     super.onCreate(null);

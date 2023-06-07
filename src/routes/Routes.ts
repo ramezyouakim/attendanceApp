@@ -1,6 +1,10 @@
 export const AuthRoutes = {
     login: 'LoginScreen',
-    registrationScreen: 'RegistrationScreen'
+    registrationScreen: 'RegistrationScreen',
+    addPhoneNumber: 'AddPhoneNumber',
+    forgotPassword: 'ForgotPassword',
+    verfiyPasswordOTP: 'VerfiyPasswordOTP',
+    resetPassword: 'ResetPassword'
 } as const
 
 export const MainRoutes = {

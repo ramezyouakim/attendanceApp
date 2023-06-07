@@ -14,7 +14,16 @@
             "unauthenticated": {
                 "title": "حدث خطأ ما",
                 "message": "الرجاء إعادة تسجيل الدخول"
-            }
+            },
+            "emptyFields": "يرجى ملء جميع الحقول المطلوبة",
+            "passowordMisMatch": "كلمة المرور وتأكيد كلمة المرور غير متطابقين"
+        },
+        "fields_validation": {
+            "required": "مطلوب",
+            "invalid_phonenumber": "رقم الهاتف غير صالح",
+            "invalid_email": "البريد الإلكتروني غير صالح",
+            "invalid_password": " كلمة المرور قصيرة جدًا ، يجب أن تكون أكثر من 6 خانات",
+            "invalid_code": "رمز غير صالح"
         }
     },
     "error_boundry_fallback": {
@@ -51,6 +60,35 @@
             "google_buton": "سجل باستخدام جوجل",
             "already_have_account": "لديك بالفعل حساب ، تسجيل الدخول",
             "title": "قم بإنشاء حسابك"
+        },
+        "add_phone_number": {
+            "title": "أضف رقم الهاتف",
+            "headline": "أضف رقم هاتفك",
+            "phone_number": "رقم الهاتف",
+            "button": "أضف"
+        },
+        "forgot_password": {
+            "title": "نسيت كلمة المرور",
+            "headline": "هل نسيت كلمة المرور",
+            "description": "الرجاء إدخال عنوان بريدك الإلكتروني لتلقي رمز إعادة تعيين كلمة المرور",
+            "label": "البريد الإلكتروني",
+            "button": "أرسل"
+        },
+        "verfiy_passoword_OTP": {
+            "title": "نسيت كلمة المرور",
+            "headline": "أدخل رمز OTP",
+            "description": "الرجاء إدخال رمز OTP الذي تلقيته على هذا البريد الإلكتروني: {{email}}",
+            "label": "OTP رمز",
+            "resendCode": "لم أتلق رمزًا ، اطلب رمزًا آخر",
+            "button": "أرسل"
+        },
+        "reset_passoword": {
+            "title": "إعادة تعيين كلمة المرور",
+            "headline": "الرجاء إدخال كلمة المرور الجديدة الخاصة بك",
+            "label": "كلمة المرور الجديدة",
+            "label1": "تأكيد كلمة المرور الجديدة",
+            "button": "تعيين",
+            "success": "تم تحديث كلمة السر بنجاح"
         }
     },
     "qr_code_scanner": {

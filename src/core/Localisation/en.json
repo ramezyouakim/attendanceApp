@@ -14,7 +14,16 @@
             "unauthenticated": {
                 "title": "Something went wrong",
                 "message": "Please Re Login"
-            }
+            },
+            "emptyFields": "Please fill in all required fields",
+            "passowordMisMatch": "Password and confirm password does not match"
+        },
+        "fields_validation": {
+            "required": "Field is required",
+            "invalid_phonenumber": "Invalid Phone Number",
+            "invalid_email": "Email is invalid",
+            "invalid_password": "Password is too short it must be more than 6 characters",
+            "invalid_code": "Invalid Code"
         }
     },
     "error_boundry_fallback": {
@@ -52,6 +61,35 @@
             "google_buton": "Signup With Google",
             "already_have_account": "Already have an account, Login",
             "title": "Create Your Account"
+        },
+        "add_phone_number": {
+            "title": "Add Phone Number",
+            "headline": "Add Your Phone Number",
+            "phone_number": "Phone Number",
+            "button": "Continue"
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "headline": "Forgot your Password?",
+            "description": "Please enter your email address to receive the reset password code",
+            "label": "Email Address",
+            "button": "Continue"
+        },
+        "verfiy_passoword_OTP": {
+            "title": "Forgot Password",
+            "headline": "Enter OTP Code",
+            "description": "Please enter the OTP code you received on this email: {{email}}",
+            "label": "OTP Code",
+            "button": "Continue",
+            "resendCode": "Didn't receive code, request another one"
+        },
+        "reset_passoword": {
+            "title": "Reset Password",
+            "headline": "Please enter your new password",
+            "label": "New password",
+            "label1": "Confirm new password",
+            "button": "Done",
+            "success": "Password updated successfully"
         }
     },
     "qr_code_scanner": {

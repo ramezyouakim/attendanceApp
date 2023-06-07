@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 import LottieView, { AnimationObject } from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable';
 import i18n from '../../../core/Localisation/i18n'
+import { observer } from 'mobx-react';
 
 
 type SmallTileProps = {
@@ -47,7 +48,7 @@ const SmallTile = ({ image, onPressHandler, title, disabled = false }: SmallTile
     
 }
 
-export default SmallTile
+export default observer(SmallTile)
 
 const CardConatiner = styled(Card).attrs(({
     containerStyle: {

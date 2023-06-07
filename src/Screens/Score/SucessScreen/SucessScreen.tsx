@@ -8,6 +8,7 @@ import trpohy from '../../../../assets/animtions/core/comman/trophy.json'
 
 import LottieView from "lottie-react-native";
 import i18n from "../../../core/Localisation/i18n"
+import { observer } from "mobx-react"
 
 const TRANSLATE_KEY = 'success_screen'
 const DESCRIPTION = i18n.t(`${TRANSLATE_KEY}.description`)
@@ -54,7 +55,7 @@ const SucessScreen = () => {
     )
 }
 
-export default SucessScreen
+export default observer(SucessScreen)
 
 const Container = styled.View(({
     flex: 1

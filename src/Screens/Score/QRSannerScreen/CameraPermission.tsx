@@ -7,6 +7,7 @@ import { Text, Button as btn } from "react-native-ui-lib"
 import { Linking, TouchableOpacity } from "react-native"
 import Navigator from '../../../routes/Navigator'
 import i18n from '../../../core/Localisation/i18n'
+import { observer } from "mobx-react"
 
 const TRANSLATE_KEY = 'camera_permission'
 const TITLE = i18n.t(`${TRANSLATE_KEY}.title`)
@@ -49,7 +50,7 @@ const CameraPermission = () => {
     )
 }
 
-export default CameraPermission
+export default observer(CameraPermission)
 
 const Container = styled.View(({ theme }) => ({
     flex: 1,

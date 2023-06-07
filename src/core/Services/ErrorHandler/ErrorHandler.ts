@@ -3,7 +3,7 @@ import { ErrorCodes } from "./types"
 
 class ErrorHandler {
     private static instance: any
-    private errorCode: ErrorCodes
+    private errorTitle: string
     private errorMessage: string
 
     constructor() {
@@ -12,10 +12,10 @@ class ErrorHandler {
         ErrorHandler.instance = this
     }
 
-    showErrorMessage = (errorCode, errorMessage) => {
-        this.errorCode = errorCode
+    showErrorMessage = (errorTitle, errorMessage) => {
+        this.errorTitle = errorTitle
         this.errorMessage = errorMessage
-        Alert.alert('', errorMessage)
+        Alert.alert(errorTitle, errorMessage)
     }
 
 }

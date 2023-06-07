@@ -1,4 +1,6 @@
+import i18n from "../../Localisation/i18n";
 import Auth from "../Auth/Auth";
+import { APPLanguages } from "../Common/types";
 import { ErrorMessages, Errors } from "../ErrorHandler/constants";
 import ErrorHandler from '../ErrorHandler/ErrorHandler'
 import User from "../User/User";
@@ -61,7 +63,8 @@ const handleRequestResponse = async (response, url, method, body?) => {
                     return null
                 case 400: {
                     const errorMessageParse = await response.json()
-                    const errorMessage = errorMessageParse.error || ErrorMessages.default.message
+                    const localErrorMessage = i18n.locale === APPLanguages.arabic ? errorMessageParse?.errorMessageAR : errorMessageParse?.errorMessageEN
+                    const errorMessage = localErrorMessage || ErrorMessages.default.message
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, errorMessage)
                 }
                     return null
@@ -74,7 +77,8 @@ const handleRequestResponse = async (response, url, method, body?) => {
                 case 404: {
                     /* Handling not found request */
                     const errorMessageParse = await response.json()
-                    const errorMessage = errorMessageParse.error || ErrorMessages.default.message
+                    const localErrorMessage = i18n.locale === APPLanguages.arabic ? errorMessageParse?.errorMessageAR : errorMessageParse?.errorMessageEN
+                    const errorMessage = localErrorMessage || ErrorMessages.default.message
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, errorMessage)
                 }
                     return null
@@ -134,12 +138,17 @@ export const getRefreshToken = async (recall) => {
 const handleRefreshRequestResponse = async (response, recall) => {
     try {
         const auth = new Auth()
+        const user = new User()
 
         if (response) {
             switch (response.status) {
                 case 200:
                 case 201:
                     /* Handling Success */
+                    const responseParse = await response.json()
+                    user.accessToken = responseParse?.accessToken
+                    user.refreshToken = responseParse?.refreshToken
+
                     return recall()
                 case 204:
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, ErrorMessages.default.message)
@@ -147,7 +156,8 @@ const handleRefreshRequestResponse = async (response, recall) => {
                     return null
                 case 400: {
                     const errorMessageParse = await response.json()
-                    const errorMessage = errorMessageParse.error || ErrorMessages.default.message
+                    const localErrorMessage = i18n.locale === APPLanguages.arabic ? errorMessageParse?.errorMessageAR : errorMessageParse?.errorMessageEN
+                    const errorMessage = localErrorMessage || ErrorMessages.default.message
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, errorMessage)
                     auth.logout()
                 }
@@ -161,7 +171,8 @@ const handleRefreshRequestResponse = async (response, recall) => {
                 case 404: {
                     /* Handling not found request */
                     const errorMessageParse = await response.json()
-                    const errorMessage = errorMessageParse.error || ErrorMessages.default.message
+                    const localErrorMessage = i18n.locale === APPLanguages.arabic ? errorMessageParse?.errorMessageAR : errorMessageParse?.errorMessageEN
+                    const errorMessage = localErrorMessage || ErrorMessages.default.message
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, errorMessage)
                     auth.logout()
                     return null

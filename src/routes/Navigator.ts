@@ -1,6 +1,6 @@
 import { shouldUpdateApp } from '../core/Config/AppVersion'
 import User from '../core/Services/User/User'
-import { CoreRoutes, MainNavs, Routes } from './Routes'
+import { AuthRoutes, CoreRoutes, MainNavs, MainRoutes, Routes } from './Routes'
 import {
     CommonActions,
     NavigationAction,
@@ -59,6 +59,15 @@ class Navigator {
     navigateTo = (routeName, routeParams?) => {
         try {
             Navigator.instance.navigate(routeName, routeParams)
+        } catch (error) {
+
+        }
+    }
+
+
+    push = (routeName, routeParams?) => {
+        try {
+            Navigator.instance.push(routeName, routeParams)
         } catch (error) {
 
         }
