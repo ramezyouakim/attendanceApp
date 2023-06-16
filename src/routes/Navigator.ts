@@ -79,7 +79,7 @@ class Navigator {
                 {
                     index: position,
                     routes: [
-                        { name: routeName }
+                        { name: routeName, params: { ...routeParams } }
                     ],
                 }
 

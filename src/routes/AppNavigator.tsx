@@ -20,7 +20,7 @@ const AppNavigator = () => {
     React.useEffect(() => {
         onRefChange(navigationRef)
         userService.initialization()
-    }, [navigationRef])
+    }, [navigationRef, userService.phonenumber])
 
     const onRefChange = (ref) => {
         if (ref) {
@@ -28,7 +28,7 @@ const AppNavigator = () => {
         }
     }
 
-    if ((userService.loading) || (uiShareStore.loadingOverlay && userService.phonenumber)) return <LoadingIndicator /> // needs refactor the app is re-rendered before the user object is set (the isLoggedIn is called before setter computed method of isLoggedIn )
+    if ((userService.loading) && userService.phonenumber) return <LoadingIndicator /> // needs refactor the app is re-rendered before the user object is set (the isLoggedIn is called before setter computed method of isLoggedIn )
 
     const renderStageNav = (): React.ReactNode => {
         const navgtionDestination = Navigator.getNavgtionDestination()

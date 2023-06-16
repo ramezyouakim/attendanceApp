@@ -23,7 +23,8 @@ class UserScore {
     }
 
     @action scanQrCode = async (qrCode) => {
-        return await api.userScore.scanQrCode(qrCode)
+        const response = await api.userScore.scanQrCode(qrCode)
+        return response
     }
 
     @action setShowCelebration = (state) => {

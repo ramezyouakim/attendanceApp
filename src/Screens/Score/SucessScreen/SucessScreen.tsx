@@ -14,7 +14,8 @@ const TRANSLATE_KEY = 'success_screen'
 const DESCRIPTION = i18n.t(`${TRANSLATE_KEY}.description`)
 const BUTTON = i18n.t(`${TRANSLATE_KEY}.button`)
 
-const SucessScreen = () => {
+const SucessScreen = ({ route }) => {
+    const { increaseBy } = route?.params
 
     const onPressHandler = () => Navigator.showMain()
 
@@ -36,7 +37,7 @@ const SucessScreen = () => {
     return (
         <>
             <Container>
-                <Text center margin-20 text10>{i18n.t(`${TRANSLATE_KEY}.title`, { points: 100 })}</Text>
+                <Text center margin-20 text10>{i18n.t(`${TRANSLATE_KEY}.title`, { points: increaseBy || '' })}</Text>
                 <Image
                     ref={lottieRef}
                     source={trpohy}

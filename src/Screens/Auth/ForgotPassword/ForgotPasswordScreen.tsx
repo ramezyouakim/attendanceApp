@@ -42,7 +42,7 @@ const ForgotPasswordScreen = () => {
             return
         }
 
-        authService.forgotPassword(email?.replace(/\s/g, ''))
+        authService.forgotPassword(email?.replace(/\s/g, '').toLowerCase())
     }
 
     return (

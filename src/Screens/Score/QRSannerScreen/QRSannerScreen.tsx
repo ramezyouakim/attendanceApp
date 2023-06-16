@@ -45,17 +45,16 @@ const QRSannerScreen = () => {
             const results = await userScoreService.scanQrCode(data)
             if (results) {
                 setScanned(false);
-                userScoreService.updateScore(results.score)
-                Navigator.reset({ routeName: Routes.mainStack.sucess, position: 2 })
+                userScoreService.updateScore(results?.score)
+                Navigator.reset({ routeName: Routes.mainStack.sucess, routeParams: { increaseBy: results?.increaseBy }, position: 2 })
                 userScoreService.setShowCelebration(true)
             }
             uiSharedStore.setLoadingOverlay(false)
-
         } catch (error) {
             console.log("handleBarCodeScanned ", error)
             setScanned(false);
             uiSharedStore.setLoadingOverlay(false)
-        } 
+        }
     }
 
     if (hasPermission === null) {

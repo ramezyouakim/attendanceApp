@@ -30,7 +30,7 @@ const WelcomeTile = () => {
         <Animatable.View animation="zoomInUp">
             <CardConatiner>
                 <ContentContainer>
-                    <WelcomeTitle>{i18n.t(`${TRANSLATION_KEY}.title`, { name: user.fullname || '' })}</WelcomeTitle>
+                    <WelcomeTitle>{i18n.t(`${TRANSLATION_KEY}.title`, { name: user.fullname.split(' ')[0] || '' })}</WelcomeTitle>
                     {/*
                         to be added 
                         <Badge label={'Most Famous'} size={17} />

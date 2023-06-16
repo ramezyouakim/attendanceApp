@@ -51,7 +51,7 @@ const RegistrationScreen = () => {
             return
         }
 
-        auth.createAccount(email, password, name, phonenumber)
+        auth.createAccount(email?.replace(/\s/g, '').toLowerCase(), password, name, phonenumber)
     }
 
     const goToLogin = () => Navigator.reset({ routeName: AuthRoutes.login })

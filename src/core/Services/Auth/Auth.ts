@@ -34,7 +34,6 @@ class Auth {
 
         const response = await api.auth.login(email, password)
         if (response) {
-            console.log(response)
             await this.setUser(response)
         }
         this.uiSharedStore.setLoadingOverlay(false)

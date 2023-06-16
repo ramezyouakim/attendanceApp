@@ -14,7 +14,7 @@ export enum BackendUrlPaths {
 }
 
 export const backendDomains = {
-    backendURL: "http://192.168.100.48:5000"
+    backendURL: "http://13.39.229.162"
 }
 
 export enum FetchMethods {

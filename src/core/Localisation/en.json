@@ -78,7 +78,7 @@
         "verfiy_passoword_OTP": {
             "title": "Forgot Password",
             "headline": "Enter OTP Code",
-            "description": "Please enter the OTP code you received on this email: {{email}}",
+            "description": "Please enter the OTP code you received on this email: {{email}}, If you can't find it check your spam folder",
             "label": "OTP Code",
             "button": "Continue",
             "resendCode": "Didn't receive code, request another one"

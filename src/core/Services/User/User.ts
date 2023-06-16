@@ -71,6 +71,7 @@ class User implements Service {
     }
 
     resetUser = async () => {
+        this.setLoading(true)
         await this.setUser({
             email: null,
             _id: null,
@@ -84,6 +85,7 @@ class User implements Service {
             },
             phonenumber: null
         })
+        this.setLoading(false)
     }
 
     async logout() {
@@ -92,6 +94,7 @@ class User implements Service {
     }
 
     async setUser(user) {
+        this.setLoading(true)
         this.email = user?.email
         this.userID = user?._id
         this.fullname = user?.fullname
@@ -102,6 +105,7 @@ class User implements Service {
         this.phonenumber = user?.phonenumber
         await this.writeUserDataToStorage()
         this.setIsLoggedIn(Boolean(user?.accessToken && user?.refreshToken))
+        this.setLoading(false)
     }
 
     @computed get isLoggedIn(): Boolean {

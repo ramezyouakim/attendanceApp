@@ -66,8 +66,9 @@ const handleRequestResponse = async (response, url, method, body?) => {
                     const localErrorMessage = i18n.locale === APPLanguages.arabic ? errorMessageParse?.errorMessageAR : errorMessageParse?.errorMessageEN
                     const errorMessage = localErrorMessage || ErrorMessages.default.message
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, errorMessage)
-                }
                     return null
+                }
+
                 case 401:
                 case 403:
                     /* Handling forbidden request */
@@ -80,8 +81,8 @@ const handleRequestResponse = async (response, url, method, body?) => {
                     const localErrorMessage = i18n.locale === APPLanguages.arabic ? errorMessageParse?.errorMessageAR : errorMessageParse?.errorMessageEN
                     const errorMessage = localErrorMessage || ErrorMessages.default.message
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, errorMessage)
-                }
                     return null
+                }
                 case 500:
                     /* Handling internal server error */
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, ErrorMessages.default.message)
@@ -160,8 +161,8 @@ const handleRefreshRequestResponse = async (response, recall) => {
                     const errorMessage = localErrorMessage || ErrorMessages.default.message
                     ErrorHandler.showErrorMessage(ErrorMessages.default.title, errorMessage)
                     auth.logout()
-                }
                     return null
+                }
                 case 401:
                 case 403:
                     /* Handling forbidden request */
